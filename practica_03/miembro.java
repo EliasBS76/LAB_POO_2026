@@ -1,13 +1,13 @@
-package practica_02;
+package practica_03;
 
 public class miembro 
 {
-    public String nombre;
-    public int telefono;
-    public int id;
-    public String Tipo_Plan;
-    public String Meses_inscrito;
-    public boolean inscrito;
+    private String nombre;
+    private long telefono;
+    private int id;
+    private String Tipo_Plan;
+    private String Meses_inscrito;
+    private boolean inscrito;
 
     //Informacion total
     public miembro (String nombre , int telefono,int id , String Tipo_Plan , String Meses_inscrito ,boolean inscrito)
@@ -69,6 +69,43 @@ public class miembro
     public void actualizar(String Tipo_Plan)
     {
         this.Tipo_Plan = Tipo_Plan;
+    }
+
+    //Creacion de los getters}
+
+    public String getNombre(){return nombre;}
+    public long getTelefono(){return telefono;}
+    public int getID(){return id;}
+    public String getTipoPlan(){return Tipo_Plan;}
+    public String meses_inscrito(){return Meses_inscrito;}
+    public boolean inscrito(){return inscrito;}
+
+    //Validacion para que el telefono tenga 10 digitos
+    public void Telefono_estructura(long verificacion)
+    {
+        String telString = String.valueOf(verificacion);
+        if(telString.length() ==10)
+        {
+            this.telefono = verificacion;
+            System.out.println("El telefono es valido");
+        }
+        else
+        {
+            System.out.println("El telefono no es correcto");
+        }
+    }
+
+    public void plan(String plan_escogido)
+    {
+        if(plan_escogido != null && !plan_escogido.trim().isEmpty())
+        {
+            this.Tipo_Plan = plan_escogido;
+            System.out.println("Plan actualizado a " + plan_escogido +"para" + this.nombre);
+        }
+        else
+        {
+            System.out.println("El plan no puedo ser nulo");
+        }
     }
 
 
