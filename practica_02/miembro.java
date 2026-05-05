@@ -10,8 +10,17 @@ public class miembro
     public boolean inscrito;
 
     //Informacion total
-    public miembro (String nombre , int telefono,int id , String Tipo_Plan , String Meses_inscrito ,boolean inscrito)
-    {
+
+public class Miembro {
+    public String nombre;
+    public int telefono;
+    public int id;
+    public String Tipo_Plan;
+    public String Meses_inscrito;
+    public boolean inscrito;
+
+    
+    public Miembro(String nombre, int telefono, int id, String Tipo_Plan, String Meses_inscrito, boolean inscrito) {
         this.nombre = nombre;
         this.telefono = telefono;
         this.id = id;
@@ -20,20 +29,17 @@ public class miembro
         this.inscrito = inscrito;
     }
 
-    //Activos
-    public miembro (String nombre , int id ,boolean inscrito)
-    {
-        this.nombre = nombre;
-        this.id = id;
-        this.inscrito = inscrito;
+    
+    public Miembro(String nombre, int id, boolean inscrito) {
+        // Rellenamos el teléfono con 0 y los textos con valores por defecto
+        this(nombre, 0, id, "Sin Asignar", "0", inscrito);
     }
 
-    //Peticion de información
-    public miembro (String nombre , int telefono)
-    {
-        this.nombre = nombre;
-        this.telefono = telefono;
+    public Miembro(String nombre, int telefono) {
+        // Alguien que solo pide info no tiene ID, ni plan, y no está inscrito aún
+        this(nombre, telefono, 0, "Pendiente", "0", false);
     }
+}
 
     public void info()
     {
