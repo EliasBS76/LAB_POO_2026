@@ -1,0 +1,64 @@
+@startuml
+skinparam classAttributeIconSize 0
+skinparam monochrome true
+//alt + D para ver el esquema
+package "practica_04" {
+
+    class hardware_model {
+        # marca : String
+        # modelo : String
+        # num_serie : String
+        + hardware_model(marca: String, modelo: String, num_serie: String)
+        + mostrarInfoBasica() : void
+    }
+
+    class sensor {
+        # temperatura : double
+        # umbral : double
+        + sensor(marca: String, modelo: String, num_serie: String, umbral: double)
+        + actualizarLectura() : void
+        + verificarEstado() : boolean
+        + mostrarAlerta() : void
+    }
+
+    class CPUSensor {
+        - numNucleos : int
+        + CPUSensor(marca: String, modelo: String, num_serie: String, umbral: double, numNucleos: int)
+        + actualizarLectura() : void <<override>>
+        + verificarEstado() : boolean <<override>>
+        + mostrarAlerta() : void <<override>>
+    }
+
+    class BateriaSensor {
+        - saludVida : int
+        + BateriaSensor(marca: String, modelo: String, num_serie: String, umbral: double, saludVida: int)
+        + actualizarLectura() : void <<override>>
+        + verificarEstado() : boolean <<override>>
+        + mostrarAlerta() : void <<override>>
+    }
+
+    class GPUSensor {
+        - numNucleos : int
+        + GPUSensor(marca: String, modelo: String, num_serie: String, umbral: double, numNucleos: int)
+        + actualizarLectura() : void <<override>>
+        + verificarEstado() : boolean <<override>>
+        + mostrarAlerta() : void <<override>>
+    }
+
+    class GestorHardware {
+        - listaDispositivos : List<sensor>
+        + agregarComponente(s: sensor) : void
+        + monitorearSistema() : void
+    }
+
+    
+    hardware_model <|-- sensor
+    sensor <|-- CPUSensor
+    sensor <|-- BateriaSensor
+    sensor <|-- GPUSensor
+
+    
+    GestorHardware "1" o-- "*" sensor : gestiona
+}
+
+@enduml
