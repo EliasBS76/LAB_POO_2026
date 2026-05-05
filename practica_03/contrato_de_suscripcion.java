@@ -22,5 +22,9 @@ public class contrato_de_suscripcion
 
         System.out.println("Datos del titular" + titular.toString());
     }
+    protected void cancelar_contrato()
+    {
+        System.out.println("El siguiente contrato se dara por terminado debido a politicas internas del estrablecimiento : " + this.folio_contrato);
+    }
     
 }
