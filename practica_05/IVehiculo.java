@@ -1,4 +1,4 @@
-package practica5v;
+package practica_05;
 
 public interface IVehiculo {
     double calcularConsumo();

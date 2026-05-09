@@ -1,4 +1,4 @@
-package practica5v;
+package practica_05;
 
 public class Auto extends Vehiculo {
 

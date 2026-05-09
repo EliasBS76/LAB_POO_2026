@@ -1,4 +1,4 @@
-package practica5v;
+package practica_05;
 
 public abstract class Vehiculo implements IVehiculo {
 
