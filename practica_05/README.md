@@ -6,7 +6,7 @@
 Se decide en tiempo de ejecución.
 
 ```java
-
+Ñ
 public abstract double calcularConsumo();
 
 
