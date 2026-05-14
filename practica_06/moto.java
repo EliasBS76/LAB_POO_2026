@@ -1,6 +1,6 @@
 package practica_06;
 
-public class Moto extends Vehiculo implements IMantenible {
+public class Moto extends Vehiculo implements Mantenible {
 
     private int cilindrada;
     private boolean esSport;
@@ -8,7 +8,7 @@ public class Moto extends Vehiculo implements IMantenible {
     private static final int INTERVALO_MANTENIMIENTO = 6000;
 
     public Moto(String marca, String modelo, int anio, String placa,
-                int cilindrada, boolean esSport) {
+        int cilindrada, boolean esSport) {
         super(marca, modelo, anio, placa);
         this.cilindrada             = cilindrada;
         this.esSport                = esSport;

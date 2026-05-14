@@ -1,0 +1,70 @@
+may 13, 2026 5:58:57 P. M. practica7.business.ServicioBancario registrarCuenta
+INFO: Cuenta registrada: 001
+may 13, 2026 5:58:57 P. M. practica7.business.ServicioBancario retirar
+WARNING: [2026-05-13T17:58:57.217775900] MontoInvalidoException | código=ERR-003 | origen=retirar | valor=-100.0 | El monto $-100,00 no es válido; debe ser mayor a cero
+may 13, 2026 5:58:57 P. M. practica7.business.ServicioBancario registrarCuenta
+INFO: Cuenta registrada: 001
+may 13, 2026 5:58:57 P. M. practica7.resources.ConexionBD <init>
+INFO: Conexión abierta -> jdbc:h2:mem:banco
+may 13, 2026 5:58:57 P. M. practica7.business.ServicioBancario buscarCuenta
+WARNING: [2026-05-13T17:58:57.240777700] CuentaNoEncontradaException | código=ERR-002 | origen=retirar | valor=999 | No existe ninguna cuenta con número: 999
+may 13, 2026 5:58:57 P. M. practica7.resources.ConexionBD close
+INFO: Conexión cerrada -> jdbc:h2:mem:banco
+may 13, 2026 5:58:57 P. M. practica7.business.ServicioBancario registrarCuenta
+INFO: Cuenta registrada: 001
+may 13, 2026 5:58:57 P. M. practica7.business.ServicioBancario registrarCuenta
+INFO: Cuenta registrada: 002
+may 13, 2026 5:58:57 P. M. practica7.resources.ConexionBD <init>
+INFO: Conexión abierta -> jdbc:h2:mem:banco
+may 13, 2026 5:58:57 P. M. practica7.business.ServicioBancario retirar
+WARNING: [2026-05-13T17:58:57.299780500] CuentaBloqueadaException | código=ERR-004 | origen=retirar | valor=002 | La cuenta 002 está bloqueada. Motivo: Actividad sospechosa
+may 13, 2026 5:58:57 P. M. practica7.resources.ConexionBD close
+INFO: Conexión cerrada -> jdbc:h2:mem:banco
+may 13, 2026 5:58:57 P. M. practica7.business.ServicioBancario registrarCuenta
+INFO: Cuenta registrada: 001
+may 13, 2026 5:58:57 P. M. practica7.business.ServicioBancario registrarCuenta
+INFO: Cuenta registrada: 003
+may 13, 2026 5:58:57 P. M. practica7.resources.ConexionBD <init>
+INFO: Conexión abierta -> jdbc:h2:mem:banco
+may 13, 2026 5:58:57 P. M. practica7.business.ServicioBancario retirar
+WARNING: [2026-05-13T17:58:57.337774400] SaldoInsuficienteException | código=ERR-001 | origen=retirar | valor=200.0 | Saldo insuficiente: tiene $50,00 pero solicitó $200,00
+may 13, 2026 5:58:57 P. M. practica7.resources.ConexionBD close
+INFO: Conexión cerrada -> jdbc:h2:mem:banco
+may 13, 2026 5:58:57 P. M. practica7.business.ServicioBancario registrarCuenta
+INFO: Cuenta registrada: 001
+may 13, 2026 5:58:57 P. M. practica7.resources.ConexionBD <init>
+INFO: Conexión abierta -> jdbc:h2:mem:banco
+may 13, 2026 5:58:57 P. M. practica7.resources.ConexionBD ejecutarOperacion
+INFO: Ejecutando en BD [jdbc:h2:mem:banco]: UPDATE cuentas SET saldo = saldo - 300.0 WHERE numero = '001'
+may 13, 2026 5:58:57 P. M. practica7.business.ServicioBancario retirar
+INFO: Retiro exitoso: cuenta=001 monto=300,00 saldo=700,00
+may 13, 2026 5:58:57 P. M. practica7.resources.ConexionBD close
+INFO: Conexión cerrada -> jdbc:h2:mem:banco
+may 13, 2026 5:58:57 P. M. practica7.resources.ConexionBD <init>
+INFO: Conexión abierta -> jdbc:h2:mem:test_twr
+may 13, 2026 5:58:57 P. M. practica7.resources.ConexionBD ejecutarOperacion
+INFO: Ejecutando en BD [jdbc:h2:mem:test_twr]: SELECT 1
+may 13, 2026 5:58:57 P. M. practica7.resources.ConexionBD close
+INFO: Conexión cerrada -> jdbc:h2:mem:test_twr
+may 13, 2026 5:58:57 P. M. practica7.business.ServicioBancario registrarCuenta
+INFO: Cuenta registrada: 001
+may 13, 2026 5:58:57 P. M. practica7.business.ServicioBancario registrarCuenta
+INFO: Cuenta registrada: 003
+may 13, 2026 5:58:57 P. M. practica7.resources.ConexionBD <init>
+INFO: Conexión abierta -> jdbc:h2:mem:banco
+may 13, 2026 5:58:57 P. M. practica7.resources.ConexionBD ejecutarOperacion
+INFO: Ejecutando en BD [jdbc:h2:mem:banco]: BEGIN TRANSACTION
+may 13, 2026 5:58:57 P. M. practica7.resources.ConexionBD ejecutarOperacion
+INFO: Ejecutando en BD [jdbc:h2:mem:banco]: COMMIT
+may 13, 2026 5:58:57 P. M. practica7.business.ServicioBancario transferir
+INFO: Transferencia exitosa: 001 -> 003 | monto=200,00
+may 13, 2026 5:58:57 P. M. practica7.resources.ConexionBD close
+INFO: Conexión cerrada -> jdbc:h2:mem:banco
+may 13, 2026 5:58:57 P. M. practica7.business.ServicioBancario registrarCuenta
+INFO: Cuenta registrada: 001
+may 13, 2026 5:58:57 P. M. practica7.resources.ConexionBD <init>
+INFO: Conexión abierta -> jdbc:h2:mem:banco
+may 13, 2026 5:58:57 P. M. practica7.business.ServicioBancario buscarCuenta
+WARNING: [2026-05-13T17:58:57.501781500] CuentaNoEncontradaException | código=ERR-002 | origen=retirar | valor=999 | No existe ninguna cuenta con número: 999
+may 13, 2026 5:58:57 P. M. practica7.resources.ConexionBD close
+INFO: Conexión cerrada -> jdbc:h2:mem:banco

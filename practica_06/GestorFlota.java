@@ -22,7 +22,7 @@ public class GestorFlota {
     public void mostrarEstadoMantenimiento() {
         System.out.println("\n--- estado de mantenimiento ---");
         for (Vehiculo v : flota) {
-            if (v instanceof IMantenible m) {
+            if (v instanceof Mantenible m) {
                 System.out.printf("  %-25s estado: %-40s costo estimado: $%.2f%n",
                     v.toString(), m.estadoGeneral(), m.calcularCostoMantenimiento());
             }
@@ -32,7 +32,7 @@ public class GestorFlota {
     public void mostrarUbicaciones() {
         System.out.println("\n--- vehiculos rastreables ---");
         for (Vehiculo v : flota) {
-            if (v instanceof IRastreable r) {
+            if (v instanceof Rastreable r) {
                 System.out.printf("  %-25s ubicacion: %s%n",
                     v.toString(), r.obtenerUbicacion());
             }
@@ -42,7 +42,7 @@ public class GestorFlota {
     public void mostrarEstadoBaterias() {
         System.out.println("\n--- vehiculos electricos ---");
         for (Vehiculo v : flota) {
-            if (v instanceof IElectrico e) {
+            if (v instanceof Electrico e) {
                 System.out.printf("  %-25s %s  autonomia restante: %.1f km%n",
                     v.toString(), e.alertaBateria(), e.calcularAutonomiaRestante());
             }
@@ -52,7 +52,7 @@ public class GestorFlota {
     public List<Vehiculo> conMantenimientoPendiente() {
         List<Vehiculo> resultado = new ArrayList<>();
         for (Vehiculo v : flota) {
-            if (v instanceof IMantenible m && m.necesitaMantenimiento()) {
+            if (v instanceof Mantenible m && m.necesitaMantenimiento()) {
                 resultado.add(v);
             }
         }
@@ -62,7 +62,7 @@ public class GestorFlota {
     public List<Vehiculo> fueraDeZona(double latCentro, double lonCentro, double radioKm) {
         List<Vehiculo> resultado = new ArrayList<>();
         for (Vehiculo v : flota) {
-            if (v instanceof IRastreable r && !r.estaEnZonaSegura(latCentro, lonCentro, radioKm)) {
+            if (v instanceof Rastreable r && !r.estaEnZonaSegura(latCentro, lonCentro, radioKm)) {
                 resultado.add(v);
             }
         }
@@ -84,7 +84,7 @@ public class GestorFlota {
     public double costoMantenimientoTotal() {
         double total = 0;
         for (Vehiculo v : flota) {
-            if (v instanceof IMantenible m) total += m.calcularCostoMantenimiento();
+            if (v instanceof Mantenible m) total += m.calcularCostoMantenimiento();
         }
         return total;
     }

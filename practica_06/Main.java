@@ -71,14 +71,14 @@ public class Main {
             gestor.masValioso(), gestor.masValioso().calcularValorComercial());
 
         System.out.println("\n--- uso directo de interfaces ---");
-        IMantenible mMoto = moto1;
+        Mantenible mMoto = moto1;
         System.out.println("  moto1 como IMantenible   : " + mMoto.estadoGeneral());
 
-        IRastreable rAuto = auto1;
+        Rastreable rAuto = auto1;
         System.out.printf("  auto1 como IRastreable   : distancia a centro = %.2f km%n",
             rAuto.calcularDistanciaA(latBase, lonBase));
 
-        IElectrico eAuto = electrico1;
+        Electrico eAuto = electrico1;
         System.out.println("  electrico1 como IElectrico: " + eAuto.alertaBateria());
         System.out.printf("  autonomia restante       : %.1f km%n", eAuto.calcularAutonomiaRestante());
     }

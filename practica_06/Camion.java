@@ -1,6 +1,6 @@
 package practica_06;
 
-public class Camion extends Vehiculo implements IMantenible, IRastreable {
+public class Camion extends Vehiculo implements Mantenible, Rastreable {
 
     private double toneladas;
     private int ejes;

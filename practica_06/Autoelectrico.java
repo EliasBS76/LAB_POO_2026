@@ -1,6 +1,6 @@
 package practica_06;
 
-public class AutoElectrico extends Vehiculo implements IMantenible, IRastreable, IElectrico {
+public class AutoElectrico extends Vehiculo implements Mantenible, Rastreable, Electrico {
 
     private double capacidadBateriaKwh;
     private double porcentajeBateria;

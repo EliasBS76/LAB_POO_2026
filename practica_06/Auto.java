@@ -1,6 +1,6 @@
 package practica_06;
 
-public class Auto extends Vehiculo implements IMantenible, IRastreable {
+public class Auto extends Vehiculo implements Mantenible, Rastreable {
 
     private int numeroPuertas;
     private int kmUltimoMantenimiento;
