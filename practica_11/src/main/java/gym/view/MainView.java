@@ -3,6 +3,7 @@ package gym.view;
 import gym.service.BackupService;
 import gym.service.DataService;
 import gym.service.NotificacionService;
+import gym.service.ThemeService;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -87,7 +88,15 @@ public class MainView {
         btnNotif.getStyleClass().addAll("btn", notifN > 0 ? "btn-warning" : "btn-secondary");
         btnNotif.setOnAction(e -> mostrarNotificaciones());
 
-        titleBar.getChildren().addAll(icon, titleText, spacer, btnNotif);
+        // Botón modo día/noche
+        Button btnTema = new Button(ThemeService.getInstance().isDark() ? "☀ Día" : "🌙 Noche");
+        btnTema.getStyleClass().addAll("btn", "btn-secondary");
+        btnTema.setOnAction(e -> {
+            ThemeService.getInstance().toggle();
+            btnTema.setText(ThemeService.getInstance().isDark() ? "☀ Día" : "🌙 Noche");
+        });
+
+        titleBar.getChildren().addAll(icon, titleText, spacer, btnNotif, btnTema);
         header.getChildren().addAll(menuBar, titleBar);
         return header;
     }
@@ -148,8 +157,7 @@ public class MainView {
         content.setPadding(new Insets(25)); content.setAlignment(Pos.CENTER);
 
         Scene scene = new Scene(content, 400, 160);
-        try { scene.getStylesheets().add(getClass().getResource("/gym/styles.css").toExternalForm()); }
-        catch (Exception ignored) {}
+        ThemeService.getInstance().registerScene(scene);
         dlgStage.setScene(scene);
 
         BackupService task = new BackupService(DataService.getInstance());

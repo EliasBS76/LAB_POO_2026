@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import gym.service.ThemeService;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -58,11 +59,7 @@ public class ConfirmDialog extends Stage {
         root.getChildren().addAll(lblTitulo, lblMensaje, buttons);
 
         Scene scene = new Scene(root);
-        try {
-            scene.getStylesheets().add(
-                getClass().getResource("/gym/styles.css").toExternalForm()
-            );
-        } catch (Exception ignored) {}
+        ThemeService.getInstance().registerScene(scene);
 
         // Keyboard shortcuts
         scene.setOnKeyPressed(e -> {

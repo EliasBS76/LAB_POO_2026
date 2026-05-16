@@ -8,6 +8,7 @@ import gym.model.EstadoPago;
 import gym.model.Pago;
 import gym.service.DataService;
 import gym.service.PagoService;
+import gym.service.ThemeService;
 import gym.util.AlertUtil;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
@@ -215,15 +216,14 @@ public class PagoView {
         Label lblIcono     = new Label("⏳"); lblIcono.setStyle("-fx-font-size: 32px;");
         Label lblClienteInfo = new Label(
                 pago.getCliente().getNombre() + " — " + pago.getPlan().getNombre());
-        lblClienteInfo.setStyle("-fx-text-fill: #90a4ae; -fx-font-size: 12px;");
+        lblClienteInfo.getStyleClass().add("info-label");
 
         VBox box = new VBox(12, lblIcono, lblClienteInfo, pb, lblMsg);
         box.setPadding(new Insets(28)); box.setAlignment(Pos.CENTER);
-        box.setStyle("-fx-background-color: #1e2235;");
+        box.getStyleClass().add("form-panel");
 
         Scene sc = new Scene(box, 420, 210);
-        try { sc.getStylesheets().add(getClass().getResource("/gym/styles.css").toExternalForm()); }
-        catch (Exception ignored) {}
+        ThemeService.getInstance().registerScene(sc);
         dlg.setScene(sc);
 
         PagoService task = new PagoService(pago);

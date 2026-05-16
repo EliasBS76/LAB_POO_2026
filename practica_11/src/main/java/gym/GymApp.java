@@ -2,6 +2,7 @@ package gym;
 
 import gym.service.DataService;
 import gym.service.NotificacionService;
+import gym.service.ThemeService;
 import gym.view.MainView;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -16,9 +17,7 @@ public class GymApp extends Application {
 
         MainView mainView = new MainView(primaryStage);
         Scene scene = new Scene(mainView.getRoot(), 1200, 720);
-        scene.getStylesheets().add(
-            getClass().getResource("/gym/styles.css").toExternalForm()
-        );
+        ThemeService.getInstance().registerScene(scene);
 
         primaryStage.setTitle("GymManager Pro");
         primaryStage.setMinWidth(900);

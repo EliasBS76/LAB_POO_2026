@@ -3,6 +3,7 @@ package gym.view;
 import gym.model.*;
 import gym.service.DataService;
 import gym.service.ReporteService;
+import gym.service.ThemeService;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -200,11 +201,10 @@ public class ReporteView {
 
         VBox box = new VBox(12, lblIcon, pb, lblMsg);
         box.setPadding(new Insets(28)); box.setAlignment(Pos.CENTER);
-        box.setStyle("-fx-background-color: #1e2235;");
+        box.getStyleClass().add("form-panel");
 
         Scene sc = new Scene(box, 420, 200);
-        try { sc.getStylesheets().add(getClass().getResource("/gym/styles.css").toExternalForm()); }
-        catch (Exception ignored) {}
+        ThemeService.getInstance().registerScene(sc);
         dlg.setScene(sc);
 
         ReporteService task = new ReporteService();
