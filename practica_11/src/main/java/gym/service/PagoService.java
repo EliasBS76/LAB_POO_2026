@@ -4,10 +4,7 @@ import gym.model.EstadoPago;
 import gym.model.Pago;
 import javafx.concurrent.Task;
 
-/**
- * Simula el procesamiento de un pago en un hilo secundario,
- * exponiendo progreso e mensajes para la barra de progreso de la UI.
- */
+
 public class PagoService extends Task<Boolean> {
 
     private final Pago pago;

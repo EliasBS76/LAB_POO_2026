@@ -5,11 +5,7 @@ import javafx.scene.Scene;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Singleton que gestiona el tema visual (oscuro / claro) de la aplicación.
- * Mantiene referencias a todas las escenas abiertas para aplicar el cambio
- * de forma global.
- */
+
 public class ThemeService {
 
     private static ThemeService instance;
@@ -27,13 +23,13 @@ public class ThemeService {
         return instance;
     }
 
-    /** Registra una escena para que reciba los cambios de tema. */
+    
     public void registerScene(Scene scene) {
         scenes.add(scene);
         applyTo(scene);
     }
 
-    /** Alterna entre tema oscuro y claro en todas las escenas registradas. */
+    
     public void toggle() {
         dark = !dark;
         scenes.forEach(this::applyTo);
@@ -46,7 +42,7 @@ public class ThemeService {
         );
     }
 
-    /** Retorna la URL del CSS activo (para diálogos secundarios). */
+   
     public String getCurrentCss() {
         return getClass().getResource(dark ? CSS_DARK : CSS_LIGHT).toExternalForm();
     }

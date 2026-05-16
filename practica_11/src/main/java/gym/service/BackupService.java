@@ -6,10 +6,7 @@ import javafx.concurrent.Task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-/**
- * Tarea ejecutada en hilo secundario para generar un backup serializado sin
- * bloquear la interfaz gráfica.
- */
+
 public class BackupService extends Task<String> {
 
     private final DataService dataService;

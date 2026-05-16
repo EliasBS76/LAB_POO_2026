@@ -13,9 +13,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-/**
- * Genera un reporte PDF con estadísticas del gimnasio en un hilo secundario.
- */
+
 public class ReporteService extends Task<String> {
 
     private final DataService ds = DataService.getInstance();
@@ -63,7 +61,7 @@ public class ReporteService extends Task<String> {
         return filename;
     }
 
-    // ── secciones ─────────────────────────────────────────────────────────────
+    
 
     private void agregarEncabezado(Document doc, PdfWriter writer) throws DocumentException {
         // Fondo de cabecera
@@ -105,7 +103,7 @@ public class ReporteService extends Task<String> {
         doc.add(stats);
         doc.add(Chunk.NEWLINE);
 
-        // Distribución por plan
+        
         doc.add(parrafoSub("Distribución por plan:"));
         PdfPTable planTable = tablaCabecera(new String[]{"Plan", "Clientes", "Precio mensual"}, 80);
         for (Plan plan : Plan.values()) {
@@ -135,7 +133,7 @@ public class ReporteService extends Task<String> {
             t.addCell(celda(String.valueOf(cnt),       false));
             t.addCell(celda(String.format("$%.2f", ing), false));
         }
-        // Fila total
+        
         PdfPCell cTotal = new PdfPCell(new Phrase("TOTAL PROYECTADO",
                 FontFactory.getFont(FontFactory.HELVETICA_BOLD, 10)));
         cTotal.setColspan(2);
@@ -208,7 +206,7 @@ public class ReporteService extends Task<String> {
         doc.add(t);
     }
 
-    // ── helpers ───────────────────────────────────────────────────────────────
+    
 
     private Paragraph tituloSeccion(String texto) {
         Font f = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 13, new Color(21, 101, 192));

@@ -27,7 +27,7 @@ public class DataService {
         return instance;
     }
 
-    // ── persistence ───────────────────────────────────────────────────────────
+    
 
     public void cargarDatos() {
         try {
@@ -77,7 +77,7 @@ public class DataService {
     }
 
     private void cargarDatosEjemplo() {
-        // Clientes
+       
         Cliente c1 = new Cliente("Juan García",   "juan@email.com",   "555-1001");
         Cliente c2 = new Cliente("María López",   "maria@email.com",  "555-1002");
         Cliente c3 = new Cliente("Carlos Ruiz",   "carlos@email.com", "555-1003");
@@ -97,13 +97,13 @@ public class DataService {
 
         clientes.addAll(List.of(c1, c2, c3, c4));
 
-        // Clases grupales
+        
         clases.add(new ClaseGrupal("Yoga",     "Laura Torres",  DayOfWeek.MONDAY,    LocalTime.of(9,  0), 12));
         clases.add(new ClaseGrupal("Spinning", "Pedro Sánchez", DayOfWeek.WEDNESDAY, LocalTime.of(18, 0), 20));
         clases.add(new ClaseGrupal("Pilates",  "Sofía Ramos",   DayOfWeek.FRIDAY,    LocalTime.of(10, 0), 15));
         clases.add(new ClaseGrupal("Zumba",    "Diego Morales", DayOfWeek.TUESDAY,   LocalTime.of(19, 0), 25));
 
-        // Equipos
+        
         Equipo e1 = new Equipo("Bicicletas estáticas", "Cardio",  10);
         Equipo e2 = new Equipo("Mancuernas (set)",     "Fuerza",  20);
         Equipo e3 = new Equipo("Caminadoras",          "Cardio",   5);
@@ -111,13 +111,13 @@ public class DataService {
         Equipo e4 = new Equipo("Barras olímpicas",     "Fuerza",   8);
         equipos.addAll(List.of(e1, e2, e3, e4));
 
-        // Recompensas
+        
         recompensas.add(new Recompensa("Clase grupal gratis",   100));
         recompensas.add(new Recompensa("Mes adicional gratis",  500));
         recompensas.add(new Recompensa("Botella personalizada", 200));
         recompensas.add(new Recompensa("Toalla del gimnasio",    80));
 
-        // Pagos de ejemplo
+        
         Pago p1 = new Pago(c1, Plan.PREMIUM, Plan.PREMIUM.getPrecioFinal(), "TARJETA");
         p1.setEstado(EstadoPago.COMPLETADO);
         Pago p2 = new Pago(c3, Plan.VIP, Plan.VIP.getPrecioFinal(), "TRANSFERENCIA");
@@ -130,7 +130,7 @@ public class DataService {
         accesos.add(new RegistroAcceso(c2, TipoAcceso.SALIDA));
     }
 
-    // ── CRUD ──────────────────────────────────────────────────────────────────
+    
 
     public List<Cliente>        getClientes()    { return clientes; }
     public List<ClaseGrupal>    getClases()      { return clases; }
@@ -153,7 +153,7 @@ public class DataService {
     public void agregarAcceso(RegistroAcceso r)  { accesos.add(r); }
 
     public long clientesEnGimnasio() {
-        // Un cliente está "dentro" si su último acceso del día es ENTRADA
+        
         return clientes.stream().filter(c -> {
             List<RegistroAcceso> suyos = accesos.stream()
                     .filter(a -> a.getCliente().getId() == c.getId() && a.esDeHoy())
@@ -163,7 +163,7 @@ public class DataService {
         }).count();
     }
 
-    // ── serializable snapshot ─────────────────────────────────────────────────
+  
 
     public record GymData(
         List<Cliente>       clientes,
