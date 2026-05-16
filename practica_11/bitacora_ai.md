@@ -58,4 +58,6 @@ Respuesta: Se usa la librería iText declarada como dependencia en el `pom.xml`.
 
 Pregunta: ¿Cómo simulo el registro de accesos al gimnasio?
 
-Respuesta: Se crea el modelo `RegistroAcceso` con un enum `TipoAcceso` (ENTRADA, SALIDA) y un timestamp. El `AccesoController` verifica que el cliente tenga membresía activa antes de registrar la entrada, lanzando `MembresiaException` si no la tiene.
+Respuesta: Se crea el modelo `RegistroAcceso` con un enum `TipoAcceso` (ENTRADA, SALIDA) y un timestamp. El `AccesoController` verifica que el cliente tenga membresía activa antes de registrar la entrada, lanzando `MembresiaException` si no la tiene
+
+
