@@ -1,0 +1,8 @@
+**1. ¿Qué es una race condition? Describe un escenario concreto de tu código donde podría ocurrir.**
+Una *race condition* (condición de carrera) ocurre cuando varios hilos intentan leer y modificar un recurso compartido al mismo tiempo, generando resultados corruptos o impredecibles. En este código, ocurriría si `CuentaCompartida` no tuviera `synchronized`: dos cajeros podrían leer el mismo saldo base simultáneamente, procesar retiros diferentes y sobrescribir el valor final, causando una pérdida del registro del dinero.
+
+**2. ¿Por qué `synchronized` resuelve el problema? ¿Qué desventaja de rendimiento tiene?**
+`synchronized` actúa como un candado (monitor) que asegura que solo un hilo a la vez pueda entrar al método protegido, obligando a los demás a esperar su turno. La desventaja es que reduce drásticamente el paralelismo y el rendimiento del programa, ya que crea un "cuello de botella" donde los hilos concurrentes se quedan inactivos esperando a que se libere el candado.
+
+**3. ¿Qué diferencia hay entre `Thread.sleep()` y `Object.wait()`? ¿Cuándo usarías cada uno?**
+`Thread.sleep()` pausa el hilo por un tiempo exacto **sin soltar** los candados que tenga bloqueados. `Object.wait()` pausa el hilo indefinidamente y **sí suelta el candado**, permitiendo que otros hilos entren. Usaría `sleep()` para simular tiempos muertos (como el tiempo físico de atender a un cliente), y `wait()` para comunicar hilos cuando falta un recurso (como esperar a que haya clientes en la fila).
