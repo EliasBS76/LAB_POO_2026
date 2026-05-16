@@ -1,8 +1,0 @@
-target/
-*.class
-*.dat
-*.jar
-!practica_11/target/gym-manager-1.0.jar
-.claude/
-__pycache__/
-.DS_Store
