@@ -93,102 +93,155 @@ def inheritance_arrow(ax, x1, y1, x2, y2, color="#2B4C7E"):
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # DIAGRAMA 1 — Modelo de dominio
+# Coordenadas en pulgadas (figsize 16x10 => xlim 0-16, ylim 0-10)
 # ═══════════════════════════════════════════════════════════════════════════════
-fig, ax = plt.subplots(figsize=(14, 9))
-ax.set_xlim(0, 1.4); ax.set_ylim(0, 0.9)
-ax.set_aspect("equal"); ax.axis("off")
-fig.patch.set_facecolor(BG); ax.set_facecolor(BG)
-ax.set_title("Diagrama de Clases — Modelo de Dominio", fontsize=13,
-             fontweight="bold", pad=12, color="#1a1a2e")
 
-W = 0.22; GAP = 0.04
+def uml2(ax, x, y, w, name, attrs, methods,
+         hc="#2B4C7E", tc="#FFFFFF", bc="#EEF3FB", ec="#2B4C7E",
+         fs=8, lh=0.45, hh=0.7):
+    """
+    Draw UML class box. Coordinates in data units that match figsize.
+    x,y = bottom-left corner. w = width.
+    lh = line height, hh = header height.
+    Returns (box_top_y, box_bottom_y, center_x).
+    """
+    n_lines = len(attrs) + len(methods) + (1 if attrs and methods else 0)
+    body_h  = lh * n_lines + lh * 0.5
+    total_h = hh + body_h
 
-# Cliente
-cx, cy = 0.04, 0.52
-uml_class(ax, cx, cy, W, 0,
-          "Cliente",
-          ["- id: int", "- nombre: String", "- email: String",
-           "- telefono: String", "- puntos: int",
-           "- membresias: List<Membresia>"],
-          ["+ getMembresiaActiva()", "+ agregarPuntos(int)"])
+    # header
+    head = FancyBboxPatch((x, y + body_h), w, hh,
+                          boxstyle="square,pad=0", linewidth=1.5,
+                          edgecolor=ec, facecolor=hc)
+    ax.add_patch(head)
+    ax.text(x + w/2, y + body_h + hh/2,
+            f"<<class>>\n{name}",
+            ha="center", va="center", fontsize=fs, fontweight="bold",
+            color=tc, linespacing=1.35)
 
-# Membresia
-mx, my = 0.37, 0.52
-uml_class(ax, mx, my, W, 0,
-          "Membresia",
-          ["- id: int", "- plan: Plan", "- fechaInicio: LocalDate",
-           "- fechaFin: LocalDate", "- renovacion: boolean",
-           "- estado: EstadoMembresia"],
-          ["+ renovar()", "+ estaVencida(): boolean",
-           "+ diasRestantes(): long"])
+    # body
+    body = FancyBboxPatch((x, y), w, body_h,
+                          boxstyle="square,pad=0", linewidth=1.5,
+                          edgecolor=ec, facecolor=bc)
+    ax.add_patch(body)
 
-# Plan (enum)
-px, py = 0.70, 0.60
-uml_class(ax, px, py, W, 0,
-          "Plan  «enum»",
-          ["BASICO  : $25 / 10 pts", "ESTANDAR: $45 / 20 pts",
-           "PREMIUM : $75 / 50 pts", "VIP     : $120 / 100 pts"],
-          ["+ getPrecioFinal(): double"],
-          head_color="#5C4B8A")
+    pad_x = 0.15
+    cur = y + body_h - lh * 0.3
+    for a in attrs:
+        cur -= lh
+        ax.text(x + pad_x, cur + lh*0.25, a,
+                fontsize=fs - 1, va="center", color="#1a1a2e")
 
-# Equipo
-ex, ey = 0.04, 0.04
-uml_class(ax, ex, ey, W, 0,
-          "Equipo",
-          ["- id: int", "- nombre: String", "- tipo: String",
-           "- cantidad: int", "- estado: EstadoEquipo",
-           "- ultimoMantenimiento: LocalDate"],
-          [])
+    if attrs and methods:
+        div_y = cur - lh * 0.1
+        ax.plot([x, x+w], [div_y, div_y], color=ec, lw=0.8, alpha=0.4)
+        cur -= lh * 0.35
 
-# Pago
-payx, payy = 0.37, 0.04
-uml_class(ax, payx, payy, W, 0,
-          "Pago",
-          ["- id: int", "- cliente: Cliente", "- plan: Plan",
-           "- monto: double", "- metodo: String",
-           "- estado: EstadoPago"],
-          [])
+    for m in methods:
+        cur -= lh
+        ax.text(x + pad_x, cur + lh*0.25, m,
+                fontsize=fs - 1, va="center", color="#333", style="italic")
 
-# RegistroAcceso
-rx, ry = 0.70, 0.04
-uml_class(ax, rx, ry, W, 0,
-          "RegistroAcceso",
-          ["- id: int", "- cliente: Cliente", "- tipo: TipoAcceso",
-           "- fechaHora: LocalDateTime"],
-          ["+ esDeHoy(): boolean"])
+    return y + total_h, y, x + w/2
 
-# ClaseGrupal
-gx, gy = 1.06, 0.33
-uml_class(ax, gx, gy, W, 0,
-          "ClaseGrupal",
-          ["- id: int", "- nombre: String", "- instructor: String",
-           "- dia: DayOfWeek", "- hora: LocalTime",
-           "- capacidadMaxima: int"],
-          ["+ inscribir(int): boolean",
-           "+ getLugaresDisponibles(): int"])
 
-# arrows: Cliente 1--* Membresia
-ax.annotate("", xy=(mx, my+0.22), xytext=(cx+W, my+0.22),
-            arrowprops=dict(arrowstyle="-|>", color="#2B4C7E", lw=1.3))
-ax.text((cx+W + mx)/2, my+0.24, "1                *", fontsize=6.5,
-        ha="center", color="#2B4C7E")
+fig, ax = plt.subplots(figsize=(16, 10))
+ax.set_xlim(0, 16)
+ax.set_ylim(0, 10)
+ax.axis("off")
+fig.patch.set_facecolor(BG)
+ax.set_facecolor(BG)
+ax.set_title("Diagrama de Clases - Modelo de Dominio", fontsize=14,
+             fontweight="bold", pad=14, color="#1a1a2e")
 
-# Membresia --uses--> Plan
-ax.annotate("", xy=(px, py+0.15), xytext=(mx+W, py+0.15),
-            arrowprops=dict(arrowstyle="->", color="#5C4B8A", lw=1.2,
+W = 3.2   # box width
+LH = 0.40 # line height
+HH = 0.75 # header height
+
+# ── fila superior: Cliente | Membresia | Plan ──────────────────────────────
+top, bot, cx_c = uml2(ax, 0.3, 5.2, W,
+    "Cliente",
+    ["- id: int", "- nombre: String", "- email: String",
+     "- telefono: String", "- puntos: int",
+     "- membresias: List<Membresia>"],
+    ["+ getMembresiaActiva()", "+ agregarPuntos(int)"],
+    lh=LH, hh=HH)
+
+top, bot, cx_m = uml2(ax, 4.2, 5.2, W,
+    "Membresia",
+    ["- id: int", "- plan: Plan", "- fechaInicio: LocalDate",
+     "- fechaFin: LocalDate", "- renovacion: boolean",
+     "- estado: EstadoMembresia"],
+    ["+ renovar()", "+ estaVencida(): boolean", "+ diasRestantes(): long"],
+    lh=LH, hh=HH)
+
+top, bot, cx_p = uml2(ax, 8.1, 5.8, W,
+    "Plan  (enum)",
+    ["BASICO   : $25  / 10 pts", "ESTANDAR : $45  / 20 pts",
+     "PREMIUM  : $75  / 50 pts", "VIP      : $120 / 100 pts"],
+    ["+ getPrecioFinal(): double"],
+    hc="#5C4B8A", ec="#5C4B8A", bc="#EDE7F6", lh=LH, hh=HH)
+
+# ── fila inferior: Equipo | Pago | RegistroAcceso | ClaseGrupal ────────────
+top_e, bot_e, cx_e = uml2(ax, 0.3, 0.5, W,
+    "Equipo",
+    ["- id: int", "- nombre: String", "- tipo: String",
+     "- cantidad: int", "- estado: EstadoEquipo",
+     "- ultimoMantenimiento: LocalDate"],
+    [],
+    hc="#1E8449", ec="#1E8449", bc="#D5F5E3", lh=LH, hh=HH)
+
+top_pa, bot_pa, cx_pa = uml2(ax, 4.2, 0.5, W,
+    "Pago",
+    ["- id: int", "- cliente: Cliente", "- plan: Plan",
+     "- monto: double", "- metodo: String",
+     "- estado: EstadoPago"],
+    [],
+    hc="#784212", ec="#784212", bc="#FDEBD0", lh=LH, hh=HH)
+
+top_r, bot_r, cx_r = uml2(ax, 8.1, 0.5, W,
+    "RegistroAcceso",
+    ["- id: int", "- cliente: Cliente", "- tipo: TipoAcceso",
+     "- fechaHora: LocalDateTime"],
+    ["+ esDeHoy(): boolean"],
+    hc="#C0392B", ec="#C0392B", bc="#FADBD8", lh=LH, hh=HH)
+
+top_g, bot_g, cx_g = uml2(ax, 12.0, 3.5, W,
+    "ClaseGrupal",
+    ["- id: int", "- nombre: String", "- instructor: String",
+     "- dia: DayOfWeek", "- hora: LocalTime",
+     "- capacidadMaxima: int"],
+    ["+ inscribir(int): boolean", "+ getLugaresDisponibles(): int"],
+    hc="#1A5276", ec="#1A5276", bc="#D6EAF8", lh=LH, hh=HH)
+
+# ── flechas ────────────────────────────────────────────────────────────────
+mid_y = 5.2 + LH * 0.5
+
+# Cliente 1 ---> * Membresia
+ax.annotate("", xy=(4.2, mid_y + 1.5), xytext=(0.3 + W, mid_y + 1.5),
+            arrowprops=dict(arrowstyle="-|>", color="#2B4C7E", lw=1.5))
+ax.text((0.3 + W + 4.2) / 2, mid_y + 1.8,
+        "1                       *",
+        ha="center", fontsize=8, color="#2B4C7E")
+
+# Membresia --uses--> Plan (dashed)
+ax.annotate("", xy=(8.1, 6.6), xytext=(4.2 + W, 6.6),
+            arrowprops=dict(arrowstyle="->", color="#5C4B8A", lw=1.3,
                             linestyle="dashed"))
-ax.text((mx+W + px)/2, py+0.17, "usa", fontsize=6, ha="center",
-        color="#5C4B8A")
+ax.text((4.2 + W + 8.1) / 2, 6.85, "usa",
+        ha="center", fontsize=8, color="#5C4B8A", style="italic")
 
-# Pago --ref--> Cliente
-ax.annotate("", xy=(cx+W/2, cy), xytext=(payx+W/2, payy+0.22),
-            arrowprops=dict(arrowstyle="->", color="#666", lw=1))
+# Pago -> Cliente (ref)
+ax.annotate("", xy=(0.3 + W/2, 5.2),
+            xytext=(4.2 + W/2, top_pa),
+            arrowprops=dict(arrowstyle="->", color="#888", lw=1.1))
 
-# RegistroAcceso --ref--> Cliente
-ax.annotate("", xy=(cx+W, cy+0.04), xytext=(rx, ry+0.18),
-            arrowprops=dict(arrowstyle="->", color="#666", lw=1))
+# RegistroAcceso -> Cliente (ref)
+ax.annotate("", xy=(0.3 + W, 5.4),
+            xytext=(8.1, top_r),
+            arrowprops=dict(arrowstyle="->", color="#888", lw=1.1))
 
-plt.tight_layout(pad=0.5)
+plt.tight_layout(pad=0.8)
 plt.savefig(f"{OUT}/diagrama_clases.png", dpi=150, bbox_inches="tight",
             facecolor=BG)
 plt.close()
