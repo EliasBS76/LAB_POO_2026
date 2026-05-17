@@ -288,6 +288,102 @@ print("3. diagrama_mvc.png")
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
+# DIAGRAMA 3.5 — Diagrama de paquetes
+# ═══════════════════════════════════════════════════════════════════════════════
+fig, ax = plt.subplots(figsize=(13, 8))
+ax.set_xlim(0, 13); ax.set_ylim(0, 8)
+ax.axis("off")
+fig.patch.set_facecolor(BG); ax.set_facecolor(BG)
+ax.set_title("Diagrama de Paquetes - GymManager Pro", fontsize=13,
+             fontweight="bold", pad=12, color="#1a1a2e")
+
+def pkg_box(ax, x, y, w, h, name, color, light, items, font_size=7.5):
+    # tab
+    tab_w = min(len(name) * 0.13 + 0.3, w)
+    tab_h = 0.35
+    tab = FancyBboxPatch((x, y + h), tab_w, tab_h,
+                         boxstyle="square,pad=0", linewidth=1.5,
+                         edgecolor=color, facecolor=color)
+    ax.add_patch(tab)
+    ax.text(x + tab_w/2, y + h + tab_h/2, name,
+            ha="center", va="center", fontsize=8.5, fontweight="bold",
+            color="white")
+    # body
+    body = FancyBboxPatch((x, y), w, h,
+                          boxstyle="square,pad=0", linewidth=1.5,
+                          edgecolor=color, facecolor=light)
+    ax.add_patch(body)
+    cur_y = y + h - 0.15
+    for item in items:
+        cur_y -= 0.30
+        ax.text(x + 0.15, cur_y, item, fontsize=font_size,
+                color="#1a1a2e", fontfamily=FONT, va="top")
+
+# model
+pkg_box(ax, 0.2, 4.6, 3.8, 3.0, "model", "#1A5276", "#D6EAF8",
+        ["Cliente", "Membresia", "Plan (enum)", "ClaseGrupal",
+         "Equipo", "Pago", "RegistroAcceso", "Recompensa",
+         "EstadoMembresia / EstadoEquipo / EstadoPago / TipoAcceso"])
+
+# controller
+pkg_box(ax, 4.3, 4.6, 3.8, 3.0, "controller", "#1E8449", "#D5F5E3",
+        ["ClienteController", "MembresiaController",
+         "ClaseGrupalController", "EquipoController",
+         "PagoController", "AccesoController"])
+
+# view
+pkg_box(ax, 8.4, 4.6, 4.4, 3.0, "view", "#6C3483", "#E8DAEF",
+        ["MainView", "ClienteView", "MembresiaView",
+         "ClaseGrupalView", "EquipoView",
+         "PagoView", "AccesoView", "ReporteView"])
+
+# service
+pkg_box(ax, 0.2, 1.0, 3.8, 3.2, "service", "#784212", "#FDEBD0",
+        ["DataService (Singleton)", "NotificacionService (Singleton)",
+         "ThemeService (Singleton)", "BackupService (Task<String>)",
+         "PagoService", "ReporteService"])
+
+# exception
+pkg_box(ax, 4.3, 2.2, 2.4, 2.0, "exception", "#C0392B", "#FADBD8",
+        ["GymException", "ClienteException", "MembresiaException"])
+
+# components + dialog + util
+pkg_box(ax, 7.0, 2.2, 2.0, 2.0, "components\n+ dialog", "#5D6D7E", "#EAECEE",
+        ["SearchableTable<T>", "StatusBadge", "ConfirmDialog"], font_size=7)
+
+pkg_box(ax, 9.3, 2.2, 3.5, 2.0, "util", "#5D6D7E", "#EAECEE",
+        ["Serializer", "AlertUtil"])
+
+# Main / GymApp at top center
+pkg_box(ax, 5.0, 7.2, 3.0, 0.55, "gym (raiz)", "#2C3E50", "#D5D8DC",
+        ["Main.java   GymApp.java"], font_size=7.5)
+
+# dependency arrows (dashed)
+def dep(ax, x1, y1, x2, y2):
+    ax.annotate("", xy=(x2, y2), xytext=(x1, y1),
+                arrowprops=dict(arrowstyle="->", color="#888",
+                                lw=1.1, linestyle="dashed"))
+
+# view -> controller
+dep(ax, 8.4, 6.1, 8.1, 6.1)
+# controller -> model
+dep(ax, 4.3, 6.1, 4.0, 6.1)
+# controller -> service
+dep(ax, 6.15, 4.6, 3.5, 4.2)
+# view -> service (ThemeService)
+dep(ax, 10.6, 4.6, 3.5, 3.8)
+
+ax.text(6.25, 6.2, "usa", fontsize=7, color="#888", ha="center")
+ax.text(4.85, 6.2, "modifica", fontsize=7, color="#888", ha="center")
+
+plt.tight_layout(pad=0.5)
+plt.savefig(f"{OUT}/diagrama_paquetes.png", dpi=150, bbox_inches="tight",
+            facecolor=BG)
+plt.close()
+print("3b. diagrama_paquetes.png")
+
+
+# ═══════════════════════════════════════════════════════════════════════════════
 # DIAGRAMA 4 — Diagrama de servicios (Singletons)
 # ═══════════════════════════════════════════════════════════════════════════════
 fig, ax = plt.subplots(figsize=(13, 5.5))

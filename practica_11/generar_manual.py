@@ -177,34 +177,12 @@ pdf.diagram(f"{DIAG}/diagrama_mvc.png",
 # ── Pag 4: Diagrama de paquetes ───────────────────────────────────────────────
 pdf.add_page()
 pdf.section_title("3. Diagrama de paquetes")
-pdf.code_block([
-    "gym/",
-    "  Main.java            <- punto de entrada (no extiende Application)",
-    "  GymApp.java          <- Application de JavaFX",
-    "",
-    "  model/               <- Entidades del dominio",
-    "    Cliente  Membresia  Plan(enum)  ClaseGrupal",
-    "    Equipo  Pago  RegistroAcceso  Recompensa",
-    "    EstadoMembresia(enum)  EstadoEquipo(enum)",
-    "    EstadoPago(enum)  TipoAcceso(enum)",
-    "",
-    "  controller/          <- Logica de negocio",
-    "    ClienteController  MembresiaController  ClaseGrupalController",
-    "    EquipoController  PagoController  AccesoController",
-    "",
-    "  view/                <- Interfaces JavaFX (solo construyen UI)",
-    "    MainView  ClienteView  MembresiaView  EquipoView",
-    "    PagoView  AccesoView  ReporteView",
-    "",
-    "  service/             <- Servicios transversales (Singletons)",
-    "    DataService  NotificacionService  ThemeService",
-    "    BackupService  PagoService  ReporteService",
-    "",
-    "  exception/  -> GymException  ClienteException  MembresiaException",
-    "  components/ -> SearchableTable<T>  StatusBadge",
-    "  dialog/     -> ConfirmDialog",
-    "  util/       -> Serializer  AlertUtil",
-])
+pdf.body(
+    "El proyecto se organiza en 8 paquetes con responsabilidades claras. "
+    "Las flechas indican dependencias: view usa controller, controller usa model y service."
+)
+pdf.diagram(f"{DIAG}/diagrama_paquetes.png",
+            "Figura 2 - Diagrama de paquetes de GymManager Pro")
 
 # ── Pag 5: Modelo de dominio ──────────────────────────────────────────────────
 pdf.add_page()
