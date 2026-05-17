@@ -9,6 +9,9 @@ Sistema de Gestión de Gimnasio desarrollado con JavaFX siguiendo el patrón MVC
 - Maven 3.8+
 - Conexión a internet (primera vez, para descargar JavaFX)
 
+- LINK del video si no se puede abrir desde GITHUB
+- https://drive.google.com/file/d/1HC0hsYmtYd1f2tbVPtC96Jd3BCWHfYjm/view?usp=drive_link
+
 ### Ejecutar en desarrollo
 ```bash
 cd practica_11
